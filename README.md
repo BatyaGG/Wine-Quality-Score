@@ -75,7 +75,7 @@ Table 3 shows that both models trained on raw and clean datasets have in general
 Red and white wine datasets have differing feature values in terms of range and mean values. According to Cortez et al. red and white datasets have following properties.
 
 <p align="center">
-  <img width="90%" height="90%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/feature_props.png">
+  <img width="70%" height="70%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/feature_props.png">
   <br>
   <i>Table 4: Red and white wine feature properties</i>
 </p>
