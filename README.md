@@ -168,7 +168,7 @@ Now, models are not correlated very much, hence they could be stacked. However, 
 # Implementation of custom caret model
 
 <p align="center">
-  <img width="90%" height="90%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/pipeline.png">
+  <img width="75%" height="75%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/pipeline.png">
   <br>
   <i>Figure 11: Model training pipeline</i>
 </p>
@@ -176,7 +176,7 @@ Now, models are not correlated very much, hence they could be stacked. However, 
 Raw dataset is classified to red and white datasets. Then, each of the datasets are cleaned (outlier deletion) considering also output variable “quality”. Finally, for each cleaned dataset individual PlsRglm model is trained using independent parameters.
 
 <p align="center">
-  <img width="90%" height="90%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/pls_selection.png">
+  <img width="75%" height="75%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/pls_selection.png">
   <br>
   <i>Table 5: pls glm model selection for red and wine datasets</i>
 </p>
@@ -184,7 +184,7 @@ Raw dataset is classified to red and white datasets. Then, each of the datasets 
 PLS GLM models were chosen using grid tuning for 4 methods (pls-glm-Gamma, pls-glm-gaussian, pls-glm-inverse.gaussian, pls-glm-poisson). Best results were given by usage of pls-glm-poisson and pls-glm-inverse.gaussian for red and white datasets respectively. Other parameters (number of components and level of significance) were also slightly improved by tuning using 5 fold Cross-Validation. Best parameters are fixed in custom model, to change them tuneGrid parameter should be used in caret::train function. Transforming datasets using Principal-Component Analysis decreased training time as was expected (13 seconds) having MAE about 0.53. Training without PCA was little longer (18 seconds) having MAE about 0.52. This model is better than first proposed model in terms of accuracy (0.52 vs 0.57) and in terms of training time also (18 vs 39 seconds). Training time may differ on various machines.
 
 <p align="center">
-  <img width="90%" height="90%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/histogram_error.png">
+  <img width="75%" height="75%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/histogram_error.png">
   <br>
   <i>Figure 10: Histogram of prediction error (difference between prediction and actual)</i>
 </p>
