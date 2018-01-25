@@ -63,7 +63,7 @@ From Figure 3 it is seen that each feature of data frame has outliers. Testing i
 Outlier detection was done using univariate approach with a help of boxplot.stats() function. Values considered as outliers if they lie outside 1.5 * “Inter Quartile Range” (IQR) where IQR is difference between 75th and 25th quartiles.
 
 <p align="center">
-  <img width="90%" height="90%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/raw_vs_clean.JPG">
+  <img width="80%" height="80%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/raw_vs_clean.JPG">
   <br>
   <i>Table 3: Comparison of model accuracies for raw vs clean datasets</i>
 </p>
