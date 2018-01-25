@@ -53,9 +53,9 @@ Outliers in datasets may have impact on model accuracy to some extent. However, 
 
 From Figure 3 it is seen that each feature of data frame has outliers. Testing is done using following procedure 10 times:
 
-          1. Data was shuffled and splitted to training and testing sets by 3/1 ratio
-          2. Training set was duplicated
-          3. Observation in duplicate dataset having at least 1 outlier in any of its features was eliminated
-          4. Two plsRglm models (with default parameters) were trained each for raw and clean training sets
-          5. Both models were tested on same testing datasets
-          6. Mean average errors were saved and compared
+  1. Data was shuffled and splitted to training and testing sets by 3/1 ratio
+  2. Training set was duplicated
+  3. Observation in duplicate dataset having at least 1 outlier in any of its features was eliminated
+  4. Two plsRglm models (with default parameters) were trained each for raw and clean training sets
+  5. Both models were tested on same testing datasets
+  6. Mean average errors were saved and compared
