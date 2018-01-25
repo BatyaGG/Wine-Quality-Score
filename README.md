@@ -104,7 +104,7 @@ Next challenge is finding a way to distinguish wine types before training and pr
 Let’s try to decrease complexity of datasets by feature elimination. Ranking features by their relevance is a first step of feature selection process. Recursive feature elimination algorithm is used for feature selection process. A random forest algorithm is trained for each 10-fold cross-validation iteration on different feature subsets.
 
 <p align="center">
-  <img width="90%" height="90%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/RMSE_vs_feature.png">
+  <img width="80%" height="80%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/RMSE_vs_feature.png">
   <br>
   <i>Figure 6: RMSE vs feature # graph</i>
 </p>
@@ -130,7 +130,7 @@ Deleting least features could be a choice to decrease complexity of training, ho
 White wine plsRglm model gives about 0.585 MAE. Let’s examine feature correlation of white wine dataset.
 
 <p align="center">
-  <img width="90%" height="90%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/white_feature_cor.png">
+  <img width="80%" height="80%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/white_feature_cor.png">
   <br>
   <i>Figure 7: Feature correlations, distributions and Pearson coefficients</i>
 </p>
@@ -138,7 +138,7 @@ White wine plsRglm model gives about 0.585 MAE. Let’s examine feature correlat
 Numbers above diagonal defines Pearson correlation coefficients between corresponding features. From above plot matrix it can be clearly seen that some features are highly correlated with each other. It can bring to feature redundancy and consequently unstable model. Let's apply kernel PCA transformation to get linearly independent subset of all predictors.
 
 <p align="center">
-  <img width="90%" height="90%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/white_feature_cor_pca.png">
+  <img width="80%" height="80%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/white_feature_cor_pca.png">
   <br>
   <i>Figure 8: Feature correlations, distributions and Pearson coefficients after PCA</i>
 </p>
@@ -146,7 +146,7 @@ Numbers above diagonal defines Pearson correlation coefficients between correspo
 We got 9-dimensional subspace of predictors which are fully unrelated to each other. Training model for PCA transformed dataset slightly improved accuracy. Now there are 2 models trained for PCA transformed and raw datasets. Stacking them to another plsRglm model had relatively better accuracy having 0.535 MAE. Let’s test different 3 plsRglm models preprocessed by PCA, ICA and Box-Cox and 1 model on raw data.
 
 <p align="center">
-  <img width="90%" height="90%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/models_cor.png">
+  <img width="80%" height="80%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/models_cor.png">
   <br>
   <i>Figure 9: Predictions correlation by 4 models trained on raw, PCA, ICA, BoxCox preprocessed datasets.</i>
 </p>
@@ -158,7 +158,7 @@ From Figure 9 it can be concluded that stacking those models is not a good choic
 To decrease models’ correlation most correlated and uncorrelated features were chosen for 2 plsRglm models without data transformations.
 
 <p align="center">
-  <img width="90%" height="90%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/models_cor_unc.png">
+  <img width="75%" height="75%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/models_cor_unc.png">
   <br>
   <i>Figure 10: Correlation of 2 model predictions made on highly correlated and lowly correlated features.</i>
 </p>
