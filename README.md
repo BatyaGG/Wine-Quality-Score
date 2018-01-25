@@ -110,6 +110,7 @@ Let’s try to decrease complexity of datasets by feature elimination. Ranking f
 </p>
 
 From Figure 6 it is seen that all features have influence on accuracy at different degrees. Ranking of features is as follows:
+
 1) Alcohol
 2) Volatile Acidity
 3) Free Sulfur Dioxide
@@ -120,4 +121,72 @@ From Figure 6 it is seen that all features have influence on accuracy at differe
 8) Total Sulfur Dioxide
 9) Fixed Acidity
 10) Chlorides
-11) Density Deleting least features could be a choice to decrease complexity of training, however there will be decrease in accuracy. There is no any obviously useless feature, and since the aim of this part is improving accuracy, no feature will be deleted.
+11) Density
+
+Deleting least features could be a choice to decrease complexity of training, however there will be decrease in accuracy. There is no any obviously useless feature, and since the aim of this part is improving accuracy, no feature will be deleted.
+
+# Attempts to improve white wine model accuracy
+
+White wine plsRglm model gives about 0.585 MAE. Let’s examine feature correlation of white wine dataset.
+
+<p align="center">
+  <img width="90%" height="90%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/white_feature_cor.png">
+  <br>
+  <i>Figure 7: Feature correlations, distributions and Pearson coefficients</i>
+</p>
+
+Numbers above diagonal defines Pearson correlation coefficients between corresponding features. From above plot matrix it can be clearly seen that some features are highly correlated with each other. It can bring to feature redundancy and consequently unstable model. Let's apply kernel PCA transformation to get linearly independent subset of all predictors.
+
+<p align="center">
+  <img width="90%" height="90%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/white_feature_cor_pca.png">
+  <br>
+  <i>Figure 8: Feature correlations, distributions and Pearson coefficients after PCA</i>
+</p>
+
+We got 9-dimensional subspace of predictors which are fully unrelated to each other. Training model for PCA transformed dataset slightly improved accuracy. Now there are 2 models trained for PCA transformed and raw datasets. Stacking them to another plsRglm model had relatively better accuracy having 0.535 MAE. Let’s test different 3 plsRglm models preprocessed by PCA, ICA and Box-Cox and 1 model on raw data.
+
+<p align="center">
+  <img width="90%" height="90%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/models_cor.png">
+  <br>
+  <i>Figure 9: Predictions correlation by 4 models trained on raw, PCA, ICA, BoxCox preprocessed datasets.</i>
+</p>
+
+From Figure 9 it can be concluded that stacking those models is not a good choice, since predictions they return are highly linearly correlated to each other (carry similar information). Stacking such models would not improve accuracy in average. Number of components in Independent component analysis was chosen empirically as 11 which always had best results in terms of MAE. One useful thing is that Principal Component analysis returns 9-dimensional subspace of 11 features having similar accuracy. So usage of PCA for preprocessing decreases number of features by 2 decreasing model complexity a little.
+
+# Further attempt for model stacking
+
+To decrease models’ correlation most correlated and uncorrelated features were chosen for 2 plsRglm models without data transformations.
+
+<p align="center">
+  <img width="90%" height="90%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/models_cor_unc.png">
+  <br>
+  <i>Figure 10: Correlation of 2 model predictions made on highly correlated and lowly correlated features.</i>
+</p>
+
+Now, models are not correlated very much, hence they could be stacked. However, each model individually had major decrease in accuracy for about 0.05-0.07 MAE. In general, stacking them would lead to performance of 1 plsRglm model trained on all features. Different subsets of features were tested for models to be stacked based on importance of features and correlation of them to each other. Also, they were preprocessed using 3 transformation methods used above. All tests’ results shown decrease in accuracy about 0.05-0.1. Ensembling transformed models leads to complicated model and frequently decrease in accuracy, therefore it will not be used. The only advantage of these tests was that training a model on PCA transformed dataset decreases dimensionality of predictors.
+
+# Implementation of custom caret model
+
+<p align="center">
+  <img width="90%" height="90%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/pipeline.png">
+  <br>
+  <i>Figure 11: Model training pipeline</i>
+</p>
+
+Raw dataset is classified to red and white datasets. Then, each of the datasets are cleaned (outlier deletion) considering also output variable “quality”. Finally, for each cleaned dataset individual PlsRglm model is trained using independent parameters.
+
+<p align="center">
+  <img width="90%" height="90%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/pls_selection.png">
+  <br>
+  <i>Table 5: pls glm model selection for red and wine datasets</i>
+</p>
+
+PLS GLM models were chosen using grid tuning for 4 methods (pls-glm-Gamma, pls-glm-gaussian, pls-glm-inverse.gaussian, pls-glm-poisson). Best results were given by usage of pls-glm-poisson and pls-glm-inverse.gaussian for red and white datasets respectively. Other parameters (number of components and level of significance) were also slightly improved by tuning using 5 fold Cross-Validation. Best parameters are fixed in custom model, to change them tuneGrid parameter should be used in caret::train function. Transforming datasets using Principal-Component Analysis decreased training time as was expected (13 seconds) having MAE about 0.53. Training without PCA was little longer (18 seconds) having MAE about 0.52. This model is better than first proposed model in terms of accuracy (0.52 vs 0.57) and in terms of training time also (18 vs 39 seconds). Training time may differ on various machines.
+
+<p align="center">
+  <img width="90%" height="90%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/histogram_error.png">
+  <br>
+  <i>Figure 10: Histogram of prediction error (difference between prediction and actual)</i>
+</p>
+
+Predictions never differs from actual value by more than 3. Mostly (more than 50%), quality is accurately predicted. About 40% observations are predicted with error of 1 quality score and about 10% data is predicted with 2 quality score difference.
