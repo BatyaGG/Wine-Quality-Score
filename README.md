@@ -46,7 +46,7 @@ Continuing cross-validation test it is found that nt = 9 and p-value ranging fro
 Outliers in datasets may have impact on model accuracy to some extent. However, outlier deletion is not good approach in some cases. Wine dataset have many observations and not very highly dimensional, therefore outlier observations deletion may improve model accuracy or at least decrease training time. Let’s analyze dataset features distributions beforehand. Features have various metric units (mg/cm^3, g/dm^3 etc.). Also, they have different concentrations and therefore have varying ranges. So, normalizing dataset will make plots consistent to visualize.
 
 <p align="center">
-  <img width="90%" height="90%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/feature_distribution.png">
+  <img width="70%" height="70%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/feature_distribution.png">
   <br>
   <i>Figure 3: Normalized feature distribution boxplot</i>
 </p>
