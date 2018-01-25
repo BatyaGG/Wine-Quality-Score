@@ -1,6 +1,6 @@
 # Wine-Quality-Score
 
-The aim of this project is to train a model or ensemble of several models in order to predict wine quality score. The data consists of 11 features which are: fixed acidity, volatile acidity, citric acid, residual sugar, chlorides, free sulfur dioxide, total sulfur dioxide, density, pH, sulphates, alcohol; and 1 output variable which is quality of wine. There are two data sets for red and white wine types. Data sets will be concatenated, and general model is going to be trained for both red and white wine types.
+The aim of this project is to train a plsRglm model or ensemble of several plsRglm models in order to predict wine quality score. The data consists of 11 features which are: fixed acidity, volatile acidity, citric acid, residual sugar, chlorides, free sulfur dioxide, total sulfur dioxide, density, pH, sulphates, alcohol; and 1 output variable which is quality of wine. There are two data sets for red and white wine types. Data sets will be concatenated, and general model is going to be trained for both red and white wine types.
 
 ## Sources
 
