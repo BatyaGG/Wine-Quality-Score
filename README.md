@@ -7,6 +7,8 @@ The aim of this project is to train a model or ensemble of several models in ord
 P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis. 
 Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009.
 
+# Project report
+
 Firstly, let’s observe data set structure and data types:
 
 <p align="center">
@@ -27,7 +29,7 @@ Based on calculated frequency ratio and percent of unique values of features it 
 
 Data is already appropriate for regression analysis. To improve regression results and avoid feature dominance data should be standardized (mean = 0, variance = 1). plsRglm does standardization automatically. Also, red and white wine datasets are vertically concatenated and shuffled row-wise to distribute red and white wine observations. This is done to improve generalization of training for both red and white wine types.
 
-# First proposed model
+## First proposed model
 Let’s firstly try to fit plsRglm model on whole data set tuning two main parameters: number of components (nt) and level of significance for predictors (alpha.pvals.expli). Model tuning and fitting is done using 10-fold cross-validation test. From initial guess nt was ranging from 3 to 7 and alpha.pvals.expli ranged from 0.1 to 3. Best performance was 0.5697036 MAE at nt = 7 and alpha.pvals.expli = 1.550 to 3.0.
 
 <p align="center">
@@ -46,7 +48,7 @@ Seems like lines on Figure 1 are of exponential nature. Line for 0.1 p-Value (re
 
 Continuing cross-validation test it is found that nt = 9 and p-value ranging from 1 to 3 are parameters for most accurate model trained on raw dataset having cross-validated 0.56959 MAE. This is first proposed model.
 
-# Outlier detection and elimination
+## Outlier detection and elimination
 
 Outliers in datasets may have impact on model accuracy to some extent. However, outlier deletion is not good approach in some cases. Wine dataset have many observations and not very highly dimensional, therefore outlier observations deletion may improve model accuracy or at least decrease training time. Let’s analyze dataset features distributions beforehand. Features have various metric units (mg/cm^3, g/dm^3 etc.). Also, they have different concentrations and therefore have varying ranges. So, normalizing dataset will make plots consistent to visualize.
 
@@ -75,7 +77,7 @@ Outlier detection was done using univariate approach with a help of boxplot.stat
 
 Table 3 shows that both models trained on raw and clean datasets have in general similar performance. Comparing their MAEs 10 times both models have equal number of wins (5 times each). However, clear data have less observations by 1000 rows in average. It is about 20% decrease of size of dataset leading to faster training. In case of model stacking (ensembling), using clean dataset could be useful in terms of training time.
 
-# Training separate models for red and white wine types
+## Training separate models for red and white wine types
 
 Red and white wine datasets have differing feature values in terms of range and mean values. According to Cortez et al. red and white datasets have following properties.
 
@@ -105,7 +107,7 @@ From Figure 5 it is seen that best parameters for white wine model is nt = 6 and
 
 Next challenge is finding a way to distinguish wine types before training and predicting. One possible way is checking properties of observation features for satisfying Table 4. Each wine type feature has 3 properties (min, max and mean) and each new observation feature will be checked for satisfying those properties. For each feature a satisfaction score will be calculated for each wine type. Results from each feature will be considered and exceeding wine type will be chosen. Such function was implemented and tested. As a result, red dataset observations were correctly classified in 99.1% and white wine observations were correctly classified in 87.2% occurrences. Best features for red/white wine classification were found empirically (all except citric.acid and alcohol) and finally red and white wines were correctly classified in 97% for both. Now we can train individual models for red and white wine and combine them in ensemble.
 
-# Feature elimination attempt
+## Feature elimination attempt
 Let’s try to decrease complexity of datasets by feature elimination. Ranking features by their relevance is a first step of feature selection process. Recursive feature elimination algorithm is used for feature selection process. A random forest algorithm is trained for each 10-fold cross-validation iteration on different feature subsets.
 
 <p align="center">
@@ -130,7 +132,7 @@ From Figure 6 it is seen that all features have influence on accuracy at differe
 
 Deleting least features could be a choice to decrease complexity of training, however there will be decrease in accuracy. There is no any obviously useless feature, and since the aim of this part is improving accuracy, no feature will be deleted.
 
-# Attempts to improve white wine model accuracy
+## Attempts to improve white wine model accuracy
 
 White wine plsRglm model gives about 0.585 MAE. Let’s examine feature correlation of white wine dataset.
 
@@ -158,7 +160,7 @@ We got 9-dimensional subspace of predictors which are fully unrelated to each ot
 
 From Figure 9 it can be concluded that stacking those models is not a good choice, since predictions they return are highly linearly correlated to each other (carry similar information). Stacking such models would not improve accuracy in average. Number of components in Independent component analysis was chosen empirically as 11 which always had best results in terms of MAE. One useful thing is that Principal Component analysis returns 9-dimensional subspace of 11 features having similar accuracy. So usage of PCA for preprocessing decreases number of features by 2 decreasing model complexity a little.
 
-# Further attempt for model stacking
+## Further attempt for model stacking
 
 To decrease models’ correlation most correlated and uncorrelated features were chosen for 2 plsRglm models without data transformations.
 
@@ -170,7 +172,7 @@ To decrease models’ correlation most correlated and uncorrelated features were
 
 Now, models are not correlated very much, hence they could be stacked. However, each model individually had major decrease in accuracy for about 0.05-0.07 MAE. In general, stacking them would lead to performance of 1 plsRglm model trained on all features. Different subsets of features were tested for models to be stacked based on importance of features and correlation of them to each other. Also, they were preprocessed using 3 transformation methods used above. All tests’ results shown decrease in accuracy about 0.05-0.1. Ensembling transformed models leads to complicated model and frequently decrease in accuracy, therefore it will not be used. The only advantage of these tests was that training a model on PCA transformed dataset decreases dimensionality of predictors.
 
-# Implementation of custom caret model
+## Implementation of custom caret model
 
 <p align="center">
   <img width="75%" height="75%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/pipeline.png">
