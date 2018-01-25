@@ -59,3 +59,65 @@ From Figure 3 it is seen that each feature of data frame has outliers. Testing i
   4. Two plsRglm models (with default parameters) were trained each for raw and clean training sets
   5. Both models were tested on same testing datasets
   6. Mean average errors were saved and compared
+
+Outlier detection was done using univariate approach with a help of boxplot.stats() function. Values considered as outliers if they lie outside 1.5 * “Inter Quartile Range” (IQR) where IQR is difference between 75th and 25th quartiles.
+
+<p align="center">
+  <img width="90%" height="90%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/raw_vs_clean.JPG">
+  <br>
+  <i>Table 3: Comparison of model accuracies for raw vs clean datasets</i>
+</p>
+
+Table 3 shows that both models trained on raw and clean datasets have in general similar performance. Comparing their MAEs 10 times both models have equal number of wins (5 times each). However, clear data have less observations by 1000 rows in average. It is about 20% decrease of size of dataset leading to faster training. In case of model stacking (ensembling), using clean dataset could be useful in terms of training time.
+
+# Training separate models for red and white wine types
+
+Red and white wine datasets have differing feature values in terms of range and mean values. According to Cortez et al. red and white datasets have following properties.
+
+<p align="center">
+  <img width="90%" height="90%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/feature_props.png">
+  <br>
+  <i>Table 4: Red and white wine feature properties</i>
+</p>
+
+Since datasets have different properties, individual models for red and white wine types probably have better accuracies than general model.
+
+<p align="center">
+  <img width="90%" height="90%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/red_param_tuning.png">
+  <br>
+  <i>Figure 4: Red wine plsRglm model performance for different model parameters</i>
+</p>
+
+From Figure 4 it is seen that at parameters nt = (4 – 10) and p-value = 0.1 model have best accuracy having 0.5039640 MAE.
+
+<p align="center">
+  <img width="90%" height="90%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/white_param_tuning.png">
+  <br>
+  <i>Figure 5: White wine plsRglm model performance for different model parameters</i>
+</p>
+
+From Figure 5 it is seen that best parameters for white wine model is nt = 6 and p = 0.6 and at such parameters accuracy is 0.5862921 MAE. Extending CV analysis better results were achieved at nt = 6 and p = 0.1 with 0.5861152 MAE. Training on clean white wine data slightly improved accuracy to 0.5824022.
+
+Next challenge is finding a way to distinguish wine types before training and predicting. One possible way is checking properties of observation features for satisfying Table 4. Each wine type feature has 3 properties (min, max and mean) and each new observation feature will be checked for satisfying those properties. For each feature a satisfaction score will be calculated for each wine type. Results from each feature will be considered and exceeding wine type will be chosen. Such function was implemented and tested. As a result, red dataset observations were correctly classified in 99.1% and white wine observations were correctly classified in 87.2% occurrences. Best features for red/white wine classification were found empirically (all except citric.acid and alcohol) and finally red and white wines were correctly classified in 97% for both. Now we can train individual models for red and white wine and combine them in ensemble.
+
+# Feature elimination attempt
+Let’s try to decrease complexity of datasets by feature elimination. Ranking features by their relevance is a first step of feature selection process. Recursive feature elimination algorithm is used for feature selection process. A random forest algorithm is trained for each 10-fold cross-validation iteration on different feature subsets.
+
+<p align="center">
+  <img width="90%" height="90%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/RMSE_vs_feature.png">
+  <br>
+  <i>Figure 6: RMSE vs feature # graph</i>
+</p>
+
+From Figure 6 it is seen that all features have influence on accuracy at different degrees. Ranking of features is as follows:
+1) Alcohol
+2) Volatile Acidity
+3) Free Sulfur Dioxide
+4) Sulphates
+5) pH
+6) Residual Sugar
+7) Citric Acid
+8) Total Sulfur Dioxide
+9) Fixed Acidity
+10) Chlorides
+11) Density Deleting least features could be a choice to decrease complexity of training, however there will be decrease in accuracy. There is no any obviously useless feature, and since the aim of this part is improving accuracy, no feature will be deleted.
