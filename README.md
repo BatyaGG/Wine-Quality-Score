@@ -137,7 +137,7 @@ model <- train(y = data[, 12], x = data[, -12], method = custom_model)
 
 Test your model by predicting test dataset outputs and evaluating accuracy using caret::postResample():
 ```
-predictions <- predict(model_or, newdata=test_set_proc[, -10])
+predictions <- predict(model, newdata=test_set[, -12])
 postResample(pred = predictions, obs = test_set[, "quality"])
 ```
 
