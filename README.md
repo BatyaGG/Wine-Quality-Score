@@ -12,6 +12,7 @@ Modeling wine preferences by data mining from physicochemical properties. In Dec
 Clone or download the project
 
 Following packages are necessary to run script: caret <6.0-77>, plsRglm <1.1.1>
+
 External packages for visualizations used in report: ggplot2 <2.2.1>, psych <1.7.8>
 
 ## Usage
