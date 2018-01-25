@@ -1,11 +1,23 @@
+# Function takes data as input and returns data subset
+# without outlier datapoints
+
 clear_data <- function(data){
-  cols <- 1:ncol(data)
-  # cols <- cols[-except]
-  for (i in cols){
+  
+  # each feature of input data is analysed
+  for (i in 1:ncol(data)){
+    # particular feature observations
     vec <- data[, i]
+    
+    # values those are out of 1.5 * IQR
     vec_out <- boxplot.stats(vec)$out
-    vec[vec %in% vec_out] = NA
+    
+    # all outlier values found in feature vector assigned as NA
+    vec[vec %in% vec_out] <- NA
+    
+    # data feature is updated
     data[, i] <- vec
   }
-  return(data[complete.cases(data), ])
+  
+  # only complete observation data subset is returned
+  data[complete.cases(data), ]
 }

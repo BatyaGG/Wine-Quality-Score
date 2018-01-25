@@ -1,3 +1,7 @@
+# Function takes data as input and returns red_wine
+# logical vector having TRUE for red wine datapoints
+# and FALSE for white wine datapoints
+
 wine_type <- function(data){
   propertie_mat <- matrix( 
     c(4.6, 15.9, 8.3, 3.8, 14.2, 6.9,
