@@ -17,3 +17,6 @@ All features are of numerical data types, no strings, factors and categories. So
   <br>
   <i>Table 2: Features test on zeroVar and nzv</i>
 </p>
+
+Based on calculated frequency ratio and percent of unique values of features it is found that there are no features with zero or near-zero variances.
+Data is already appropriate for regression analysis. To improve regression results and avoid feature dominance data should be standardized (mean = 0, variance = 1). plsRglm does standardization automatically. Also, red and white wine datasets are vertically concatenated and shuffled row-wise to distribute red and white wine observations. This is done to improve generalization of training for both red and white wine types.
