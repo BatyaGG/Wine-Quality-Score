@@ -17,7 +17,7 @@ External packages for visualizations used in report: ggplot2 <2.2.1>, psych <1.7
 
 ## Usage
 
-<i>Use main_train.R script as example</i>
+<i>Use main_train.R script as an example</i>
 
 Import caret package and evaluate directory of script folder:
 ```
