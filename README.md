@@ -60,7 +60,6 @@ custom_model <- list(library = "plsRglm",
                        y_red <- data_red[,(ncol(x) + 1)]
                        x_white <- data_white[,-(ncol(x) + 1)]
                        y_white <- data_white[,(ncol(x) + 1)]
-                       
                        if (param$pca.prep){
                          trans_red <- preProcess(x_red, method = "pca")
                          trans_white <- preProcess(x_white, method = "pca")
