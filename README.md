@@ -83,7 +83,7 @@ Red and white wine datasets have differing feature values in terms of range and 
 Since datasets have different properties, individual models for red and white wine types probably have better accuracies than general model.
 
 <p align="center">
-  <img width="90%" height="90%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/red_param_tuning.png">
+  <img width="80%" height="80%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/red_param_tuning.png">
   <br>
   <i>Figure 4: Red wine plsRglm model performance for different model parameters</i>
 </p>
