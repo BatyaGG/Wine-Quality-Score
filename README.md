@@ -26,7 +26,7 @@ Data is already appropriate for regression analysis. To improve regression resul
 Let’s firstly try to fit plsRglm model on whole data set tuning two main parameters: number of components (nt) and level of significance for predictors (alpha.pvals.expli). Model tuning and fitting is done using 10-fold cross-validation test. From initial guess nt was ranging from 3 to 7 and alpha.pvals.expli ranged from 0.1 to 3. Best performance was 0.5697036 MAE at nt = 7 and alpha.pvals.expli = 1.550 to 3.0.
 
 <p align="center">
-  <img width="90%" height="90%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/RMSE_vs_parameters.png">
+  <img width="80%" height="80%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/RMSE_vs_parameters.png">
   <br>
   <i>Figure 1: RMSE vs plsRglm parameters relation</i>
 </p>
