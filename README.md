@@ -34,7 +34,7 @@ Let’s firstly try to fit plsRglm model on whole data set tuning two main param
 Seems like lines on Figure 1 are of exponential nature. Line for 0.1 p-Value (red) is near to its asymptote at 7 #PLS components, however other lines are still have decreasing rate.
 
 <p align="center">
-  <img width="90%" height="90%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/RMSE_vs_parameters_2.png">
+  <img width="80%" height="80%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/RMSE_vs_parameters_2.png">
   <br>
   <i>Figure 2: RMSE vs plsRglm parameters relation</i>
 </p>
