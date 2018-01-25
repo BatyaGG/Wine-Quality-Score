@@ -91,7 +91,7 @@ Since datasets have different properties, individual models for red and white wi
 From Figure 4 it is seen that at parameters nt = (4 – 10) and p-value = 0.1 model have best accuracy having 0.5039640 MAE.
 
 <p align="center">
-  <img width="90%" height="90%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/white_param_tuning.png">
+  <img width="80%" height="80%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/white_param_tuning.png">
   <br>
   <i>Figure 5: White wine plsRglm model performance for different model parameters</i>
 </p>
