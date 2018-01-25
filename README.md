@@ -6,4 +6,5 @@ Firstly, let’s observe data set structure and data types:
 
 <p align="center">
   <img width="90%" height="90%" src="https://raw.githubusercontent.com/BatyaGG/Wine-Quality-Score/master/figures/structure.JPG">
+  <i>Table 1: Dataset structure</i>
 </p>
