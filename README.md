@@ -5,7 +5,7 @@ The aim of this project is to train a model or ensemble of several models in ord
 Firstly, let’s observe data set structure and data types:
 
 <p align="center">
-  <img width="90%" height="90%" src="https://raw.githubusercontent.com/BatyaGG/Wine-Quality-Score/master/figures/structure.JPG">
+  <img width="80%" height="80%" src="https://raw.githubusercontent.com/BatyaGG/Wine-Quality-Score/master/figures/structure.JPG">
   <br>
   <i>Table 1: Dataset structure</i>
 </p>
