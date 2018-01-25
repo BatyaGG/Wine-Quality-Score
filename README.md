@@ -151,7 +151,7 @@ Firstly, let’s observe data set structure and data types:
   <i>Table 1: Dataset structure</i>
 </p>
 
-All features are of numerical data types, no strings, factors and categories. So, no need to create dummy variables or to convert variables to numerical. No wine names or IDs, all features are chemical data and therefore cannot be deleted by first look. By checking for missing values, it was found that all observations are complete, so no need to impute data. Some features of data set may have constant or around constant value for all observations. Such features have no correlation to output variables and may lead to unstable models.
+All features are of numerical data types, no strings, factors and categories. So, no need to create dummy variables or to convert variables to numerical. No wine names or IDs, all features are chemical data and therefore cannot be deleted by first look. By checking for missing values, it was found that all observations are complete, so no need to impute data. Some features of the dataset may have constant or around constant value for all observations. Such features have no correlation to output variables and may lead to unstable models.
 
 <p align="center">
   <img width="70%" height="70%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/nzv.JPG">
@@ -184,7 +184,7 @@ Continuing cross-validation test it is found that nt = 9 and p-value ranging fro
 
 ## Outlier detection and elimination
 
-Outliers in datasets may have impact on model accuracy to some extent. However, outlier deletion is not good approach in some cases. Wine dataset have many observations and not very highly dimensional, therefore outlier observations deletion may improve model accuracy or at least decrease training time. Let’s analyze dataset features distributions beforehand. Features have various metric units (mg/cm^3, g/dm^3 etc.). Also, they have different concentrations and therefore have varying ranges. So, normalizing dataset will make plots consistent to visualize.
+Outliers in datasets may have impact on model accuracy to some extent. However, outlier deletion is not good approach in some cases. Wine dataset have many observations and is not very highly dimensional, therefore outlier observations deletion may improve model accuracy or at least decrease training time. Let’s analyze dataset features distributions beforehand. Features have various metric units (mg/cm^3, g/dm^3 etc.). Also, they have different concentrations and therefore have varying ranges. So, normalizing dataset will make plots consistent to visualize.
 
 <p align="center">
   <img width="70%" height="70%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/feature_distribution.png">
@@ -192,12 +192,12 @@ Outliers in datasets may have impact on model accuracy to some extent. However, 
   <i>Figure 3: Normalized feature distribution boxplot</i>
 </p>
 
-From Figure 3 it is seen that each feature of data frame has outliers. Testing is done using following procedure 10 times:
+From Figure 3 it is seen that each feature of data frame has considerable amounts of outliers. Testing is done using following procedure 10 times:
 
   1. Data was shuffled and splitted to training and testing sets by 3/1 ratio
   2. Training set was duplicated
   3. Observation in duplicate dataset having at least 1 outlier in any of its features was eliminated
-  4. Two plsRglm models (with default parameters) were trained each for raw and clean training sets
+  4. Two plsRglm models (with similar parameters) were trained each for raw and clean training sets
   5. Both models were tested on same testing datasets
   6. Mean average errors were saved and compared
 
@@ -284,7 +284,7 @@ Numbers above diagonal defines Pearson correlation coefficients between correspo
   <i>Figure 8: Feature correlations, distributions and Pearson coefficients after PCA</i>
 </p>
 
-We got 9-dimensional subspace of predictors which are fully unrelated to each other. Training model for PCA transformed dataset slightly improved accuracy. Now there are 2 models trained for PCA transformed and raw datasets. Stacking them to another plsRglm model had relatively better accuracy having 0.535 MAE. Let’s test different 3 plsRglm models preprocessed by PCA, ICA and Box-Cox and 1 model on raw data.
+We got 9-dimensional subspace of predictors which are unrelated to each other. Training model for PCA transformed dataset slightly decreased accuracy. Now there are 2 models trained for PCA transformed and raw datasets. Stacking them to another plsRglm model had relatively better accuracy having 0.535 MAE. Let’s test different 3 plsRglm models preprocessed by PCA, ICA and Box-Cox and 1 model on raw data.
 
 <p align="center">
   <img width="80%" height="80%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/models_cor.png">
@@ -304,9 +304,11 @@ To decrease models’ correlation most correlated and uncorrelated features were
   <i>Figure 10: Correlation of 2 model predictions made on highly correlated and lowly correlated features.</i>
 </p>
 
-Now, models are not correlated very much, hence they could be stacked. However, each model individually had major decrease in accuracy for about 0.05-0.07 MAE. In general, stacking them would lead to performance of 1 plsRglm model trained on all features. Different subsets of features were tested for models to be stacked based on importance of features and correlation of them to each other. Also, they were preprocessed using 3 transformation methods used above. All tests’ results shown decrease in accuracy about 0.05-0.1. Ensembling transformed models leads to complicated model and frequently decrease in accuracy, therefore it will not be used. The only advantage of these tests was that training a model on PCA transformed dataset decreases dimensionality of predictors.
+Now, models are not correlated very much, hence they could be stacked. However, each model individually had major decrease in accuracy for about 0.05-0.07 MAE. In general, stacking them would lead to performance of 1 plsRglm model trained on all features. Different subsets of features were tested for models to be stacked based on importance of features and correlation of them to each other. Also, they were preprocessed using 3 transformation methods used above. All tests’ results shown decrease in accuracy about 0.05-0.1. Ensembling transformed models leads to complicated model and frequently decrease in accuracy, therefore such method will not be used. The only advantage of these tests was that training a model on PCA transformed dataset decreases dimensionality of predictors.
 
 ## Implementation of custom caret model
+
+Attempts to improve individual model accuracies was not successful, so 2 plsRglm model will be trained for each red/white wine datasets.
 
 <p align="center">
   <img width="75%" height="75%" src="https://github.com/BatyaGG/Wine-Quality-Score/blob/master/figures/pipeline.png">
