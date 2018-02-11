@@ -134,7 +134,7 @@ test_set <- data[-index,]
 
 Train your model:
 ```
-model <- train(y = data[, 12], x = data[, -12], method = custom_model)
+model <- train(y = train_set[, 12], x = train_set[, -12], method = custom_model)
 ```
 
 Test your model by predicting test dataset outputs and evaluating accuracy using caret::postResample():
